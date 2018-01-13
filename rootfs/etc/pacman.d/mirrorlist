@@ -1,1 +1,1 @@
-Server = https://mirror.leaseweb.net/archlinux/$repo/os/$arch
+Server = http://ca.us.mirror.archlinuxarm.org/$arch/$repo
