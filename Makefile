@@ -4,7 +4,7 @@ DOCKER_IMAGE:=base
 
 rootfs:
 	$(eval TMPDIR := $(shell mktemp -d))
-	env -i pacstrap -C ./pacman-extra.conf -c -d -G -M $(TMPDIR) $(shell cat packages)
+	env -i pacstrap -C /usr/share/devtools/pacman-extra.conf -c -d -G -M $(TMPDIR) $(shell cat packages)
 	cp --recursive --preserve=timestamps --backup --suffix=.pacnew rootfs/* $(TMPDIR)/
 	arch-chroot $(TMPDIR) locale-gen
 	arch-chroot $(TMPDIR) pacman-key --init
@@ -13,7 +13,7 @@ rootfs:
 	rm -rf $(TMPDIR)
 
 docker-image: rootfs
-	docker build -t $(DOCKER_ORGANIZATION)/$(DOCKER_IMAGE) .
+	docker build -t yangxuan8282/archlinuxarm:aarch64 .
 
 docker-image-test: docker-image
 	# FIXME: /etc/mtab is hidden by docker so the stricter -Qkk fails
